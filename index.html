@@ -1,4 +1,4 @@
-<!-- ======== App Manutenzione 2.2.5 ======== -->
+<!-- ======== App Manutenzione 2.2.6 ======== -->
 
 <!doctype html>
 <html lang="it">
@@ -77,7 +77,7 @@
       <div class="titleline">
         <div>
           <h1>Modulo | Codifica Articoli - Richiesta Acquisto - Spedizione</h1>
-          <p>Compila i dati (nessun campo è obbligatorio). Puoi aggiungere più articoli. Alla fine copi il testo o lo invii via email.</p>
+          <p>Compila i dati (nessun campo è obbligatorio). Puoi aggiungere più articoli. Alla fine genera il riepilogo e invialo via email.</p>
         </div>
         <div class="pill">Lingua: Italiano</div>
       </div>
@@ -124,8 +124,7 @@
     <div class="btnbar">
       <button id="acq_addBtn" class="primary" type="button">➕ Aggiungi un altro articolo</button>
       <button id="acq_buildBtn" type="button">✅ Passo 1 — Genera riepilogo</button>
-      <button id="acq_copyBtn" type="button">📋 Passo 2 — Copia il testo</button>
-      <a id="acq_mailBtn" class="btn primary" href="#" role="button">✉️ Passo 3 — Finalizza e invia</a>
+      <a id="acq_mailBtn" class="btn primary" href="#" role="button">✉️ Passo 2 — Finalizza e invia</a>
       <button id="acq_clearBtn" class="danger" type="button">🔄 Ripristina modulo</button>
     </div>
 
@@ -158,8 +157,7 @@
   <div class="btnbar">
     <button id="addBtn" class="primary" type="button">➕ Aggiungi un altro articolo</button>
     <button id="buildBtn" type="button">✅ Passo 1 — Genera riepilogo</button>
-    <button id="copyBtn" type="button">📋 Passo 2 — Copia il testo</button>
-    <a id="mailBtn" class="btn primary" href="#" role="button">✉️ Passo 3 — Finalizza e invia</a>
+    <a id="mailBtn" class="btn primary" href="#" role="button">✉️ Passo 2 — Finalizza e invia</a>
     <button id="clearBtn" class="danger" type="button">🔄 Ripristina modulo</button>
   </div>
 
@@ -173,7 +171,7 @@
   </div>
 
   <p class="muted">
-    Nota: “Invia via email” usa l’app di posta predefinita del dispositivo (mailto). Se non si apre, copia il riepilogo e incollalo manualmente in Outlook.
+    Nota: “Finalizza e invia” usa l’app di posta predefinita del dispositivo (mailto). Se non si apre, seleziona e copia manualmente il riepilogo in Outlook.
   </p>
 </div>
 
@@ -232,13 +230,12 @@
     <div class="btnbar">
       <button id="spd_addBtn" class="primary" type="button">➕ Aggiungi riga</button>
       <button id="spd_buildBtn" type="button">✅ Passo 1 — Genera riepilogo</button>
-      <button id="spd_copyBtn" type="button">📋 Passo 2 — Copia il testo</button>
-      <a id="spd_mailBtn" class="btn primary" href="#" role="button">✉️ Passo 3 — Finalizza e invia</a>
+      <a id="spd_mailBtn" class="btn primary" href="#" role="button">✉️ Passo 2 — Finalizza e invia</a>
       <button id="spd_clearBtn" class="danger" type="button">🔄 Ripristina modulo</button>
     </div>
 
     <p class="muted">
-      Nota: “Invia via email” usa l’app di posta predefinita (mailto). Se non si apre, copia il riepilogo e incollalo manualmente in Outlook.
+      Nota: “Finalizza e invia” usa l’app di posta predefinita (mailto). Se non si apre, seleziona e copia manualmente il riepilogo in Outlook.
     </p>
   </div>
 
@@ -424,6 +421,7 @@ const templateAcqItem = (n) => `
     <select data-acq="motivo">
       <option value="Scorta">Scorta</option>
       <option value="Rottura">Rottura</option>
+      <option value="Preventiva">Preventiva</option>
       <option value="Miglioramento">Miglioramento</option>
       <option value="Progetto">Progetto</option>
       <option value="Prova">Prova</option>
@@ -1037,21 +1035,18 @@ function richiedenteObbligatorio() {
   // --- Unir botones CODIFICA (safe) ---
   $('addBtn')?.addEventListener('click', addItem);
   $('buildBtn')?.addEventListener('click', buildSummary);
-  $('copyBtn')?.addEventListener('click', copySummary);
   $('clearBtn')?.addEventListener('click', resetAll);
 
   
   // --- Unir botones ACQUISTO (safe) ---
   document.getElementById('acq_addBtn')?.addEventListener('click', acqAddItem);
   document.getElementById('acq_buildBtn')?.addEventListener('click', acqBuildSummary);
-  document.getElementById('acq_copyBtn')?.addEventListener('click', acqCopySummary);
   document.getElementById('acq_clearBtn')?.addEventListener('click', acqReset);
 
   
   // --- Unir botones SPEDIZIONE (safe) ---
   document.getElementById('spd_addBtn')?.addEventListener('click', spdAddItem);
   document.getElementById('spd_buildBtn')?.addEventListener('click', spdBuildSummary);
-  document.getElementById('spd_copyBtn')?.addEventListener('click', spdCopySummary);
   document.getElementById('spd_clearBtn')?.addEventListener('click', spdReset);
 
   
